@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Unity-compatible settings. Don't change these:
+    - netstandard2.1: an API surface Unity 6 can load directly as a plugin DLL or as source.
+    - LangVersion 9: Unity 6's compiler supports C# 9, so newer syntax
+      (global usings, file-scoped namespaces, record structs, etc.) would break the drop-in.
+    - ImplicitUsings off: that feature is "global using", which is C# 10.
+    - Nullable off: Unity doesn't read csproj settings, so keep this build matching what Unity sees.
+    - No UnityEngine reference, ever: this library is pure math.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>9</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <RootNamespace>SatTracker.Core</RootNamespace>
+  </PropertyGroup>
+
+</Project>

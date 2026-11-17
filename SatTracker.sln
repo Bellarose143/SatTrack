@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatTracker.Core", "SatTracker.Core\SatTracker.Core.csproj", "{AE65AFC7-7B46-4CB1-B27A-A87A6310B326}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SatTracker.Core.Tests", "SatTracker.Core.Tests\SatTracker.Core.Tests.csproj", "{E29D6D69-E712-4B7E-8D3A-82AD85FEC5E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE65AFC7-7B46-4CB1-B27A-A87A6310B326}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE65AFC7-7B46-4CB1-B27A-A87A6310B326}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE65AFC7-7B46-4CB1-B27A-A87A6310B326}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE65AFC7-7B46-4CB1-B27A-A87A6310B326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E29D6D69-E712-4B7E-8D3A-82AD85FEC5E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E29D6D69-E712-4B7E-8D3A-82AD85FEC5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E29D6D69-E712-4B7E-8D3A-82AD85FEC5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E29D6D69-E712-4B7E-8D3A-82AD85FEC5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
