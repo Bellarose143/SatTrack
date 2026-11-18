@@ -15,7 +15,7 @@ public class ProjectSetupTests
     [Test]
     public void Placeholder_TestRunnerWorks()
     {
-        Assert.That(1 + 1, Is.EqualTo(2));
+        Assert.Pass("NUnit discovered and ran this test.");
     }
 
     [Test]
