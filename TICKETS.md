@@ -37,7 +37,7 @@ Convert a UTC calendar date/time into a Julian Date (a running count of days, ex
 - 1996-10-26 14:20:00 → 2450383.0972222 (match to 1e-7 days)
 - Stored as two doubles (whole day + fraction) internally, explained in M1-01
 
-### ⬜ M1-04 (Build, delegate then review): Parse the ISS snapshot
+### ✅ M1-04 (Build, delegate then review): Parse the ISS snapshot
 
 Load a saved CelesTrak ISS JSON file into a C# record. Convert units once, here.
 **AC / tests:**

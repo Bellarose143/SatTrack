@@ -17,4 +17,14 @@
     <RootNamespace>SatTracker.Core</RootNamespace>
   </PropertyGroup>
 
+  <!--
+    JSON: Newtonsoft.Json, because Unity ships it as an official package
+    (com.unity.nuget.newtonsoft-json). In Unity, install that package instead of
+    copying this DLL. System.Text.Json isn't built into netstandard2.1 and drags
+    in extra DLLs that tend to clash inside Unity.
+  -->
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
 </Project>

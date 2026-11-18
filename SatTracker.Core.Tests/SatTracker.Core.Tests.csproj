@@ -24,4 +24,9 @@
     <ProjectReference Include="..\SatTracker.Core\SatTracker.Core.csproj" />
   </ItemGroup>
 
+  <!-- Saved real-world data (e.g. Fixtures/iss-25544.json) is copied next to the test DLL. -->
+  <ItemGroup>
+    <None Update="Fixtures\**\*.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
