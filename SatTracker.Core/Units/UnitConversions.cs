@@ -9,6 +9,7 @@ namespace SatTracker.Core.Units
     public static class UnitConversions
     {
         public const double MinutesPerDay = 1440.0;
+        public const double MillisecondsPerMinute = 60000.0;
 
         public static double DegreesToRadians(double degrees)
         {

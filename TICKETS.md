@@ -52,7 +52,7 @@ Load a saved CelesTrak ISS JSON file into a C# record. Convert units once, here.
 - **EPOCH has no "Z" suffix. Parse it explicitly as UTC (e.g. `DateTimeStyles.AssumeUniversal | AdjustToUniversal`). Test: the parsed hour equals the hour in the string, regardless of the machine's time zone.**
 - No `DateTime.Now` anywhere in the library. Only `DateTime.UtcNow`, and only at the app edge.
 
-### ⬜ M1-05 (Build, you write): Minutes since snapshot
+### ✅ M1-05 (Build, you write): Minutes since snapshot
 
 Given the snapshot's epoch and any target moment, return minutes between them (this is what the prediction formula takes as input).
 **AC / tests:**

@@ -4,6 +4,7 @@
 // not the file-scoped `namespace X;` (that's C# 10).
 
 using System;
+using SatTracker.Core.Units;
 
 namespace SatTracker.Core.Time
 {
@@ -45,6 +46,19 @@ namespace SatTracker.Core.Time
             double julianFrac = dateTime.TimeOfDay.Ticks / (double)TimeSpan.TicksPerDay;
 
             return new JulianDate(julianDay, julianFrac);
+        }
+
+        public double MinutesSince(JulianDate otherDate)
+        {
+            double minutesFromWholeDays = (JdAtMidnightDays - otherDate.JdAtMidnightDays) * UnitConversions.MinutesPerDay;
+            double minutesFromDayFractions = (DayFraction - otherDate.DayFraction) * UnitConversions.MinutesPerDay;
+
+            return minutesFromWholeDays + minutesFromDayFractions;
+        }
+
+        public double MinutesSince(DateTime otherDate)
+        {
+            return MinutesSince(FromUTC(otherDate));
         }
 
         private double CalculateFullJulianNumber()

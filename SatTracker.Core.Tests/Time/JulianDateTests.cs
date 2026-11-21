@@ -119,7 +119,6 @@ namespace SatTracker.Core.Tests.Time
             Assert.DoesNotThrow(() => JulianDate.FromUTC(dateTime));
         }
 
-        //   - Non-UTC DateTime -> throws? (only if you take a DateTime)
         [Test]
         public void Test_JulianDate_NonUTC_Local()
         {
