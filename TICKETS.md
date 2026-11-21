@@ -62,7 +62,7 @@ Given the snapshot's epoch and any target moment, return minutes between them (t
 - Target before epoch → negative number (allowed, not an error)
 - Exact to 1e-6 minutes
 
-### ⬜ M1-06 (Verify): Sanity check against reality
+### ✅ M1-06 (Verify): Sanity check against reality
 
 Download today's ISS JSON, parse it with your code, print the fields.
 **AC:**

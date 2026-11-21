@@ -491,3 +491,6 @@ Thumbs.db
 .idea/
 # Claude Code local settings (keep shared .claude/ config committable)
 .claude/settings.local.json
+
+# M1-06: fresh CelesTrak downloads for the Sandbox; stale within hours, not worth versioning
+SatTracker.Sandbox/Data/
