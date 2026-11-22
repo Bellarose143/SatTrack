@@ -29,4 +29,10 @@
     <None Update="Fixtures\**\*.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- M2-02: Vallado's official SGP4 test inputs and expected answers (see Fixtures/Sgp4Verification/SOURCES.md). -->
+  <ItemGroup>
+    <None Update="Fixtures\Sgp4Verification\SGP4-VER.TLE" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\Sgp4Verification\tcppver.out" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

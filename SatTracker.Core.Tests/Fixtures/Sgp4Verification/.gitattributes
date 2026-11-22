@@ -1,0 +1,4 @@
+# Official reference data: store byte-for-byte, no line-ending conversion
+# (SGP4-VER.TLE uses CRLF, tcppver.out uses LF, as downloaded).
+SGP4-VER.TLE -text
+tcppver.out -text
