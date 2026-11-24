@@ -59,7 +59,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
         /// <summary>
         /// The row times in tcppver.out are printed with 8 decimal places, so a row's time can differ
         /// from the exact planned time by up to half of 1e-8 minutes. Allow 1e-8 to be safe.
-        /// This only checks the two files line up; it is not a tolerance on any orbit value.
+        /// This only checks that the two files line up. It is not a tolerance on any orbit value.
         /// </summary>
         private const double PrintedTimeToleranceMinutes = 1e-8;
 
@@ -88,7 +88,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
         {
             if (tles.Count != expected.Runs.Count)
                 throw new InvalidDataException(
-                    $"SGP4-VER.TLE has {tles.Count} entries but tcppver.out has {expected.Runs.Count} satellites; they should match one to one.");
+                    $"SGP4-VER.TLE has {tles.Count} entries but tcppver.out has {expected.Runs.Count} satellites. They should match one to one.");
 
             var cases = new List<Sgp4VerificationCase>(tles.Count);
             for (int i = 0; i < tles.Count; i++)
@@ -126,13 +126,13 @@ namespace SatTracker.Core.Tests.Sgp4Verification
 
         /// <summary>
         /// Rebuilds the list of times Vallado's C++ test program (TestSGP4.cpp) propagates to, step by
-        /// step the same way it does:
+        /// step the same way it does.
         /// <list type="number">
-        /// <item>it always propagates to minute 0 and prints that row first;</item>
-        /// <item>then it walks from start to stop in steps, adding the step each time (if start is
-        /// 0 it skips it, so minute 0 isn't printed twice);</item>
-        /// <item>if a step would go past stop, that last time is cut back to exactly stop;</item>
-        /// <item>if SGP4 reports an error at a time, it prints nothing for it and stops.</item>
+        /// <item>It always propagates to minute 0 first and prints that row.</item>
+        /// <item>Then it walks from start to stop, adding the step each time. If start is 0, it skips
+        /// it, so minute 0 isn't printed twice.</item>
+        /// <item>If a step would go past stop, that last time is cut back to exactly stop.</item>
+        /// <item>If SGP4 reports an error at a time, it prints nothing for that time and stops.</item>
         /// </list>
         /// Example: start -5184, stop -4896, step 120 → 0, -5184, -5064, -4944, -4896.
         /// </summary>

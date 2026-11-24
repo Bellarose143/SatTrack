@@ -23,8 +23,8 @@ These two files are reference data and must never be edited. Both were downloade
   (matches the GitHub API's hash for that file).
 - Cross-check against the official 2021 C++ `.e` files in the zip: all 9 near-Earth cases agree
   to the printed digits, except one row of 28057 that differs by 1e-8 km (one rounding step in the
-  last printed digit). The only big differences are in deep-space cases (23599 up to ~0.96 km;
-  20413 up to 1.2e-7 km). Deep space is out of scope for this project.
+  last printed digit). The other differences are all in deep-space cases. Satellite 23599 is off
+  by up to about 0.96 km, and 20413 by up to 1.2e-7 km. Deep space is out of scope for this project.
 
 ## Printed precision
 - Time: 8 decimal places (minutes). Position: 8 decimal places (km, so 0.01 mm).

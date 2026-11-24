@@ -69,11 +69,11 @@ Download today's ISS JSON, parse it with your code, print the fields.
 - Claude Code ports SGP4 from David Vallado's official reference code. You review it and own the verification.
 - **Near-Earth only.** Satellites with an orbit period of 225 minutes or more (the "deep space" mode) are rejected with a clear error. ISS and SatGus are both near-Earth.
 
-### ⬜ M2-01 (Learn): What SGP4 does
+### ✅ M2-01 (Learn): What SGP4 does
 Plain-language tour: what goes in, what comes out, and the three things it accounts for (the basic hoop motion, Earth's equatorial bulge slowly turning the hoop, and drag shrinking it). Units and the WGS-72 vs WGS-84 trap.
 **Done when:** you've answered the check questions in chat.
 
-### ⬜ M2-02 (Build, delegate): Official test data reader (test project only)
+### ✅ M2-02 (Build, delegate): Official test data reader (test project only)
 Read Vallado's verification files: `SGP4-VER.TLE` (the inputs, in old TLE text format) and `tcppver.out` (the expected answers). Download both from CelesTrak's "Revisiting Spacetrack Report #3" page and save them in the test project.
 **AC:**
 - Lives in the **test project**, not Core

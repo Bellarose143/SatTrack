@@ -44,9 +44,9 @@ namespace SatTracker.Core.Tests.Sgp4Verification
         public IReadOnlyList<Sgp4ExpectedRun> Runs { get; }
 
         /// <summary>
-        /// Catalog number → its runs. Almost every satellite has exactly one run; 20413 has two
-        /// (SGP4-VER.TLE lists it twice, with different time windows), so the value is a list of runs
-        /// rather than one merged list of rows that would mix the two windows.
+        /// Catalog number → its runs. Almost every satellite has exactly one run. Satellite 20413 has
+        /// two, because SGP4-VER.TLE lists it twice with different time windows. That's why the value
+        /// is a list of runs, not one merged list of rows that would mix the two windows.
         /// </summary>
         public IReadOnlyDictionary<int, IReadOnlyList<Sgp4ExpectedRun>> RunsByCatalogNumber { get; }
     }
@@ -155,8 +155,8 @@ namespace SatTracker.Core.Tests.Sgp4Verification
 
         private static double Number(Match row, string group, string source, int lineNumber)
         {
-            // The pattern already guarantees "-?digits.digits", so parsing can't fail; only an
-            // absurdly long number could overflow to infinity.
+            // The pattern already guarantees "-?digits.digits", so parsing can't fail. The only
+            // risk is an absurdly long number overflowing to infinity.
             string text = row.Groups[group].Value;
             double value = double.Parse(text, NumberStyles.AllowLeadingSign | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
             if (!double.IsFinite(value))

@@ -1,6 +1,6 @@
 // M2-02: Reader for Vallado's SGP4 verification inputs (SGP4-VER.TLE).
 //
-// Test project only. SatTracker.Core never reads TLE text; it gets its orbit data from
+// Test project only. SatTracker.Core never reads TLE text. It gets its orbit data from
 // CelesTrak JSON. This reader exists so the official SGP4 test cases can be fed to Core.
 
 using System.Globalization;
@@ -100,7 +100,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
                     throw Error(sourceName, lineNumber, $"expected a comment (#) or TLE line 1 (starting \"1 \"), got \"{line}\"");
 
                 if (i + 1 >= lines.Length)
-                    throw Error(sourceName, lineNumber, "TLE line 1 is the last line of the file; its line 2 is missing");
+                    throw Error(sourceName, lineNumber, "TLE line 1 is the last line of the file, so its line 2 is missing");
 
                 string line2 = lines[i + 1];
                 if (!line2.StartsWith("2 ", StringComparison.Ordinal))
@@ -126,7 +126,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
                 throw Error(source, line1Number, $"TLE line 1 must be exactly {TleLineLength} characters, got {line1.Length}");
             if (line2.Length <= TleLineLength)
                 throw Error(source, line2Number,
-                    $"TLE line 2 must be {TleLineLength} characters followed by start, stop and step minutes; got {line2.Length} characters");
+                    $"TLE line 2 must be {TleLineLength} characters followed by start, stop and step minutes, but it is only {line2.Length} characters");
 
             // ---- Line 1 ----
             int catalogNumber = ReadCatalogNumber(line1, line1Number, source);
@@ -157,7 +157,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
             // rev/day -> rad/min, BSTAR and eccentricity used as-is.
             var snapshot = new OrbitSnapshot(
                 NoradCatalogId: catalogNumber,
-                ObjectName: $"SGP4-VER {catalogNumber:D5}", // the file has no names; make it obvious where this came from
+                ObjectName: $"SGP4-VER {catalogNumber:D5}", // The file has no names, so make it obvious where this one came from.
                 EpochUtc: epochUtc,
                 MeanMotionRadPerMin: UnitConversions.RevPerDayToRadPerMin(meanMotionRevPerDay),
                 Eccentricity: eccentricity,
@@ -209,7 +209,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
             decimal ticksAfterJan1 = (dayOfYear - 1m) * TimeSpan.TicksPerDay;
             if (ticksAfterJan1 != decimal.Truncate(ticksAfterJan1))
                 throw Error(source, lineNumber,
-                    $"epoch day of year {dayText.Trim()} has more precision than DateTime can hold (100 ns); refusing to round it");
+                    $"epoch day of year {dayText.Trim()} is more precise than DateTime can hold (100 ns), and it won't be rounded");
 
             DateTime epochUtc = new DateTime(year, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddTicks((long)ticksAfterJan1);
 
@@ -306,7 +306,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
         internal static string[] SplitLines(string text)
         {
             string[] lines = text.Split('\n').Select(l => l.TrimEnd('\r')).ToArray();
-            // A final newline leaves one empty string at the end; that's not a blank line.
+            // A final newline leaves one empty string at the end. That's not a real blank line.
             if (lines.Length > 0 && lines[lines.Length - 1].Length == 0)
                 lines = lines.Take(lines.Length - 1).ToArray();
             return lines;
