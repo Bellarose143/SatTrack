@@ -24,7 +24,7 @@ namespace SatTracker.Core.Tests.Sgp4Verification
 
             Assert.That(errors, Is.EqualTo(new[]
             {
-                (22312, 494.2028672),   // near-Earth, decayed
+                (22312, 494.2028672),   // near-Earth, eccentricity out of range (code 1).
                 (28350, 1560.0),        // near-Earth
                 (28872, 55.0),          // near-Earth, sub-orbital, "lost in 50 minutes"
                 (29141, 440.0),         // near-Earth, "lost in under 420 min"

@@ -82,7 +82,7 @@ Read Vallado's verification files: `SGP4-VER.TLE` (the inputs, in old TLE text f
 - Parses `tcppver.out` into: catalog number → list of (minutes since epoch, position km, velocity km/s)
 - Test: the ISS-like or any known entry's catalog number, inclination, and mean motion come out correct
 
-### ⬜ M2-03 (Build, delegate then review): Port near-Earth SGP4
+### ✅ M2-03 (Build, delegate then review): Port near-Earth SGP4
 **AC:**
 - Interface (roughly): `Sgp4.Initialize(elements) → Sgp4Satellite`, then `satellite.Propagate(minutesSinceEpoch) → (PositionKm, VelocityKmPerSec)` in TEME (space coordinates)
 - Uses **WGS-72** constants inside SGP4 (not WGS-84), with a comment explaining why
@@ -92,11 +92,11 @@ Read Vallado's verification files: `SGP4-VER.TLE` (the inputs, in old TLE text f
 - Double precision throughout; no rounding; no packages
 - Code split into clearly named methods/sections so it can be reviewed in pieces (M2-04)
 
-### ⬜ M2-04 (Learn, you): Review the port
+### ✅ M2-04 (Learn, you): Review the port
 Walk through the port one section at a time with Claude Code explaining in plain language: setup, the slow hoop changes (bulge + drag), the short wobbles, solving for where the satellite is on the hoop, and building the final position/velocity.
 **Done when:** you can say in one sentence what each section does, and you bring any "why?" questions back to chat.
 
-### ⬜ M2-05 (Build, you write): Verification harness
+### ✅ M2-05 (Build, you write): Verification harness
 Run every near-Earth official case through your SGP4 and compare against `tcppver.out`.
 **AC:**
 - Every near-Earth case, every time step is checked (one NUnit test case per satellite is fine)
