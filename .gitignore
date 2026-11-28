@@ -494,3 +494,6 @@ Thumbs.db
 
 # M1-06: fresh CelesTrak downloads for the Sandbox; stale within hours, not worth versioning
 SatTracker.Sandbox/Data/
+
+# Claude Code project instructions (kept local, not published)
+CLAUDE.md
