@@ -61,7 +61,7 @@ Download today's ISS JSON, parse it with your code, print the fields.
 
 ---
 
-## Milestone 2: The prediction formula, SGP4 (Nov 21 to Dec 6, Thanksgiving inside)
+## ✅ Milestone 2: The prediction formula, SGP4 (Nov 21 to Dec 6, Thanksgiving inside), finished Nov 27
 
 **Milestone done when:** given a snapshot and a time, your code says where the satellite is (position + velocity in space coordinates), it matches every official near-Earth test case, and you can explain what each section of the formula does in plain words.
 
@@ -105,7 +105,7 @@ Run every near-Earth official case through your SGP4 and compare against `tcppve
 - Deep-space cases skipped with a visible reason, not silently
 - **If anything fails: stop and bring it here. Never loosen tolerances.**
 
-### ⬜ M2-06 (Verify): Where is the ISS right now?
+### ✅ M2-06 (Verify): Where is the ISS right now?
 **AC:**
 - Before running code: calculate the ISS's altitude by hand from `MEAN_MOTION` (the formula is covered in M2-01)
 - Propagate today's ISS snapshot to right now

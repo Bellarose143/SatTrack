@@ -1,4 +1,5 @@
 ﻿// M1-06: Sanity check against reality.
+// M2-06: also propagates the snapshot to right now with SGP4 (CHECK 4).
 //
 // This is the "app edge": the one place allowed to read the clock (DateTime.UtcNow).
 // SatTracker.Core never does; it only takes times as inputs.
@@ -7,6 +8,7 @@
 //   dotnet run --project SatTracker.Sandbox -- path\to\iss.json
 
 using System.Globalization;
+using SatTracker.Core.Propagation;
 using SatTracker.Core.Snapshots;
 using SatTracker.Core.Time;
 using SatTracker.Core.Units;
@@ -18,6 +20,9 @@ namespace SatTracker.Sandbox
         private const double MinutesPerHour = 60.0;
         private const double RadiansToDegrees = 180.0 / Math.PI;
         private const double RadiansPerRevolution = 2.0 * Math.PI;
+
+        // Earth's radius at the equator (WGS-84), the value M2-06 uses for "altitude".
+        private const double EarthEquatorialRadiusKm = 6378.137;
 
         public static int Main(string[] args)
         {
@@ -45,9 +50,12 @@ namespace SatTracker.Sandbox
                 return 1;
             }
 
+            // Read the clock once, so every check uses the same "now".
+            DateTime nowUtc = DateTime.UtcNow;
+
             PrintFields(snapshot, jsonPath);
-            PrintChecks(snapshot, DateTime.UtcNow);
-            return 0;
+            PrintChecks(snapshot, nowUtc);
+            return PrintPositionNow(snapshot, nowUtc) ? 0 : 1;
         }
 
         // Check 1: every field, in the units the library stores AND converted back
@@ -88,6 +96,41 @@ namespace SatTracker.Sandbox
             Console.WriteLine($"  Now (UTC):    {nowUtc.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture)}");
             Console.WriteLine($"  Epoch (UTC):  {s.EpochUtc.ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture)}");
             Console.WriteLine($"  Age:          {Show(snapshotAgeMinutes)} min  (= {Show(snapshotAgeMinutes / MinutesPerHour)} h)");
+            Console.WriteLine();
+        }
+
+        // Check 4 (M2-06): where SGP4 says the satellite is right now.
+        // Returns false (after printing why) if SGP4 can't give a position for this snapshot.
+        private static bool PrintPositionNow(OrbitSnapshot s, DateTime nowUtc)
+        {
+            double minutesSinceEpoch = JulianDate.FromUTC(nowUtc).MinutesSince(s.EpochJd);
+
+            Sgp4State state;
+            try
+            {
+                state = Sgp4.Initialize(s).Propagate(minutesSinceEpoch);
+            }
+            catch (Exception ex) when (ex is Sgp4Exception || ex is Sgp4DeepSpaceNotSupportedException)
+            {
+                Console.Error.WriteLine($"CHECK 4 failed: {ex.Message}");
+                return false;
+            }
+
+            // Distance from Earth's center minus Earth's radius at the equator. Earth is flatter towards
+            // the poles, so away from the equator this reads a little low (up to ~13 km at the ISS's
+            // 51.6° maximum latitude). Fine for a sanity check.
+            double distanceFromCenterKm = state.PositionKm.Length;
+            double altitudeKm = distanceFromCenterKm - EarthEquatorialRadiusKm;
+            double speedKmPerSec = state.VelocityKmPerSec.Length;
+
+            Console.WriteLine("CHECK 4: where is it right now? (expect altitude ~400 to 430 km, speed ~7.6 to 7.7 km/s)");
+            Console.WriteLine($"  Minutes since epoch:   {Show(minutesSinceEpoch)} min");
+            Console.WriteLine($"  Position (TEME, km):   x {Show(state.PositionKm.X)}, y {Show(state.PositionKm.Y)}, z {Show(state.PositionKm.Z)}");
+            Console.WriteLine($"  Velocity (TEME, km/s): x {Show(state.VelocityKmPerSec.X)}, y {Show(state.VelocityKmPerSec.Y)}, z {Show(state.VelocityKmPerSec.Z)}");
+            Console.WriteLine($"  Distance from center:  {Show(distanceFromCenterKm)} km");
+            Console.WriteLine($"  Altitude:              {Show(altitudeKm)} km  (distance - {Show(EarthEquatorialRadiusKm)}; compare with your hand calculation)");
+            Console.WriteLine($"  Speed:                 {Show(speedKmPerSec)} km/s");
+            return true;
         }
 
         private static void Row(string field, string libraryValue, string celesTrakValue)
